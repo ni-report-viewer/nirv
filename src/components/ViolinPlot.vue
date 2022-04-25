@@ -91,7 +91,7 @@ export default {
   },
   mounted() {
     this.width = this.$refs.chart.clientWidth;
-    this.brushedSubjects = this.data.map((d) => d.subject_session_id);
+    this.brushedSubjects = null;
 
     let highestPoint = this.getHighestPoint();
     while (highestPoint < this.margin.top) {
@@ -222,7 +222,7 @@ export default {
         if (d3.event.selection !== null) return;
         const circle = d3.selectAll("#" + that.svgId + " circle");
         circle.classed("hidden", false);
-        that.brushedSubjects = that.data.map((d) => d.subject_session_id);
+        that.brushedSubjects = null;
       }
 
       // Color scale for dots

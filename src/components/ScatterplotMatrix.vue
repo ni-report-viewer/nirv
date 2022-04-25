@@ -146,7 +146,7 @@ export default {
   },
   mounted() {
     this.width = Math.min(this.$refs.chart.clientWidth, this.maxWidth);
-    this.brushedSubjects = this.data.map((d) => d.subject_session_id);
+    this.brushedSubjects = null;
     this.createChart();
     this.mounted = true;
   },
@@ -347,7 +347,7 @@ export default {
       function brushended() {
         if (d3.event.selection !== null) return;
         circle.classed("hidden", false);
-        that.brushedSubjects = that.data.map((d) => d.subject_session_id);
+        that.brushedSubjects = null;
       }
     },
     handleResize() {

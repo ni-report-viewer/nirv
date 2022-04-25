@@ -136,26 +136,28 @@ export default {
     this.brushedSubjects = this.metricOptions.reduce(
       (o, key) => ({
         ...o,
-        [key]: this.groupReport.subjects.map((d) => d.subject_session_id),
+        [key]: null,
       }),
       {}
     );
-    this.brushedSubjects.scatterplotMatrix = this.groupReport.subjects.map(
-      (d) => d.subject_session_id
-    );
+    this.brushedSubjects.scatterplotMatrix = null;
   },
   methods: {
     updateBrushedSubjects(brushedSubjectData) {
       this.brushedSubjects[brushedSubjectData.metric] =
         brushedSubjectData.brushed;
 
-      this.brushedSubjectsIntersection = Object.values(
-        this.brushedSubjects
-      ).reduce(
-        (accumulator, currentValue) =>
-          accumulator.filter((d) => currentValue.includes(d)),
-        this.groupReport.subjects.map((d) => d.subject_session_id)
+      const filteredBrushedSubs = Object.values(this.brushedSubjects).filter(
+        (element) => element !== null
       );
+
+      this.brushedSubjectsIntersection = filteredBrushedSubs.length
+        ? filteredBrushedSubs.reduce(
+            (accumulator, currentValue) =>
+              accumulator.filter((d) => currentValue.includes(d)),
+            this.groupReport.subjects.map((d) => d.subject_session_id)
+          )
+        : [];
     },
     nextSubjectRequested() {
       this.$emit("nextSubjectRequested");
