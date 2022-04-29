@@ -1,49 +1,54 @@
 <template>
   <b-container fluid class="px-0">
-    <b-container fluid class="px-0" v-if="groupReport">
-      <topBar
-        :reportProp="groupReport"
-        sidebarOn
-        isGroupReport
-        v-on:ratingsDownloadRequested="ratingsDownloadRequested"
-        v-on:ratingsUploaded="ratingsUploaded"
-        v-on:nextSubjectRequested="nextSubjectRequested"
-      ></topBar>
+    <b-container fluid class="px-0" v-if="store.participantMetrics">
+      <TheTopbar sidebarOn isGroupReport />
 
-      <explainer :explainer-text="explainerText.qcMetrics"></explainer>
+      <TheExplainer :explainer-text="explainerText.metrics" />
       <b-form-group class="text-left" label="Select scatterplot metrics">
         <b-form-checkbox-group
           id="checkbox-group-scatter"
           v-model="scatterMetrics"
-          :options="metricOptions"
+          :options="store.metricOptions"
           name="scatter-metrics"
         ></b-form-checkbox-group>
       </b-form-group>
 
-      <scatterplotMatrix
-        :dataProp="groupReport['subjects']"
+      <ScatterplotMatrix
+        :dataProp="groupReport.participants"
         :metricsProp="scatterMetrics"
-        v-on:updateBrushedSubjects="updateBrushedSubjects"
-        v-on:updateSelectedSubject="updateSelectedSubject"
-      ></scatterplotMatrix>
+        v-on:updateBrushedSubjects="updateBrushedParticipants"
+        v-on:updateSelectedSubject="updateSelectedParticipant"
+      />
 
-      <b-form-group class="text-left" label="Select violin plot metrics">
+      <b-form-group class="text-left" label="Select swarm plot metrics">
         <b-form-checkbox-group
-          id="checkbox-group-violin"
-          v-model="violinMetrics"
-          :options="metricOptions"
-          name="violin-metrics"
+          id="checkbox-group-swarm"
+          v-model="swarmMetrics"
+          :options="store.metricOptions"
+          name="swarm-metrics"
         ></b-form-checkbox-group>
       </b-form-group>
 
-      <violinPlot
-        v-for="metric in violinMetrics"
-        :key="metric"
-        :data="groupReport['subjects']"
-        :metric="metric"
-        v-on:updateBrushedSubjects="updateBrushedSubjects"
-        v-on:updateSelectedSubject="updateSelectedSubject"
-      ></violinPlot>
+      <div v-if="groupReport.participants.length > 100">
+        <SwarmPlot
+          v-for="metric in swarmMetrics"
+          :key="metric"
+          :data="groupReport.participants"
+          :metric="metric"
+          v-on:updateBrushedSubjects="updateBrushedParticipants"
+          v-on:updateSelectedSubject="updateSelectedParticipant"
+        />
+      </div>
+      <div v-else>
+        <ViolinPlot
+          v-for="metric in swarmMetrics"
+          :key="metric"
+          :data="groupReport.participants"
+          :metric="metric"
+          v-on:updateBrushedSubjects="updateBrushedParticipants"
+          v-on:updateSelectedSubject="updateSelectedParticipant"
+        ></ViolinPlot>
+      </div>
 
       <b-card
         class="text-left p-0 mb-5 mt-2"
@@ -53,7 +58,7 @@
           <b-row class="d-flex align-items-center">
             <b-col cols="7" class="text-left">
               <h5 class="m-0">
-                Selected subjects: {{ brushedSubjectsIntersection.length }}
+                Selected subjects: {{ store.brushedParticipants.length }}
               </h5>
             </b-col>
             <b-col cols="5" class="text-right">
@@ -78,9 +83,9 @@
         <b-card-text>
           <b-nav vertical class="pb-0 text-left brushed-subject-nav">
             <b-nav-item
-              v-for="subject in brushedSubjectsIntersection"
+              v-for="subject in store.brushedParticipants"
               :key="subject"
-              @click="updateSelectedSubject(subject)"
+              @click="updateSelectedParticipant(subject)"
               >{{ subject }}</b-nav-item
             >
           </b-nav>
@@ -88,115 +93,85 @@
       </b-card>
     </b-container>
 
-    <spinner v-else></spinner>
+    <TheSpinner v-else />
   </b-container>
 </template>
 
 <script>
-import explainer from "./Explainer";
-import scatterplotMatrix from "./ScatterplotMatrix";
-import spinner from "./Spinner";
-import topBar from "./TopBar";
-import violinPlot from "./ViolinPlot";
+import { ref } from "@vue/composition-api";
+import TheExplainer from "@/components/TheExplainer";
+import ScatterplotMatrix from "@/components/ScatterplotMatrix";
+import TheSpinner from "@/components/TheSpinner";
+import TheTopbar from "@/components/TheTopbar";
+import SwarmPlot from "@/components/ViolinPlot";
+import ViolinPlot from "@/components/ViolinPlot.vue";
+import { useReportStore } from "@/stores/store";
 
 export default {
-  name: "groupReport",
+  name: "ReportGroup",
   components: {
-    explainer,
-    scatterplotMatrix,
-    spinner,
-    topBar,
-    violinPlot,
+    TheExplainer,
+    ScatterplotMatrix,
+    TheSpinner,
+    TheTopbar,
+    SwarmPlot,
+    ViolinPlot,
   },
-  data() {
-    return {
-      groupReport: null,
-      brushedSubjects: {},
-      brushedSubjectsIntersection: [],
-      scatterMetrics: [],
-      violinMetrics: [],
-      explainerText: {
-        qcMetrics:
-          "Quality Control (QC) metrics are computed before and after the preprocessing pipeline is run on dMRI data. In the sections below, any QC measure computed on the unprocessed dMRI data will begin with 'raw_' while the same measure calculated on the preprocessed images will begin with 't1_' (assuming this the output space of the data is T1w). Basic properties of the scans such as the number of directions and dimensions of the images are available as well. Select measures below to see how they are distributed relative to on another.",
-      },
+  setup() {
+    const store = useReportStore();
+    const scatterMetrics = ref([]);
+    const swarmMetrics = ref([]);
+
+    const updateSelectedParticipant = (participant) => {
+      store.currentParticipant = participant;
     };
-  },
-  props: {
-    reportProp: {
-      type: Object,
-    },
-  },
-  mounted() {
-    if (this.reportProp) {
-      this.groupReport = this.reportProp;
-    }
-    // Todo: Find some way to sensibly initialize these next two lines
-    this.scatterMetrics = []; // this.metricOptions.slice(0, 3);
-    this.violinMetrics = []; // this.metricOptions.slice(3);
-    this.brushedSubjects = this.metricOptions.reduce(
+
+    const groupReport = { participants: store.participantMetrics };
+
+    const explainerText = {
+      metrics: "TODO: explainer text for metrics",
+    };
+
+    const brushedSubjects = store.metricOptions.reduce(
       (o, key) => ({
         ...o,
         [key]: null,
       }),
       {}
     );
-    this.brushedSubjects.scatterplotMatrix = null;
-  },
-  methods: {
-    updateBrushedSubjects(brushedSubjectData) {
-      this.brushedSubjects[brushedSubjectData.metric] =
-        brushedSubjectData.brushed;
+    brushedSubjects.scatterplotMatrix = null;
 
-      const filteredBrushedSubs = Object.values(this.brushedSubjects).filter(
+    const copyBrushedSubjectsToClipboard = () => {
+      navigator.clipboard.writeText(store.brushedParticipants.join());
+    };
+
+    const updateBrushedParticipants = (brushedParticipantData) => {
+      brushedSubjects[brushedParticipantData.metric] =
+        brushedParticipantData.brushed;
+
+      const filteredBrushedSubs = Object.values(brushedSubjects).filter(
         (element) => element !== null
       );
 
-      this.brushedSubjectsIntersection = filteredBrushedSubs.length
+      store.brushedParticipants = filteredBrushedSubs.length
         ? filteredBrushedSubs.reduce(
             (accumulator, currentValue) =>
               accumulator.filter((d) => currentValue.includes(d)),
-            this.groupReport.subjects.map((d) => d.subject_session_id)
+            store.participantMetrics.map((d) => d.participant_session_id)
           )
         : [];
-    },
-    nextSubjectRequested() {
-      this.$emit("nextSubjectRequested");
-    },
-    updateSelectedSubject(subject) {
-      this.$emit("subjectSelected", subject);
-    },
-    ratingsDownloadRequested() {
-      this.$emit("ratingsDownloadRequested");
-    },
-    ratingsUploaded(e) {
-      this.$emit("ratingsUploaded", e);
-    },
-    copyBrushedSubjectsToClipboard() {
-      navigator.clipboard.writeText(this.brushedSubjectsIntersection.join());
-    },
-  },
-  computed: {
-    metricOptions() {
-      return Object.keys(this.groupReport.subjects[0])
-        .filter(
-          (k) =>
-            ![
-              "participant_id",
-              "subject_id",
-              "subject_session_id",
-              "session_id",
-              "file_name",
-            ].includes(k)
-        )
-        .sort();
-    },
-  },
-  watch: {
-    reportProp() {
-      if (this.reportProp) {
-        this.groupReport = this.reportProp;
-      }
-    },
+    };
+
+    return {
+      store,
+      groupReport,
+      updateSelectedParticipant,
+      updateBrushedParticipants,
+      scatterMetrics,
+      swarmMetrics,
+      explainerText,
+      copyBrushedSubjectsToClipboard,
+    };
   },
 };
 </script>

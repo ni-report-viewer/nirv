@@ -7,7 +7,7 @@ assignees: ""
 ---
 
 <!--
-Thanks for suggesting an improvement to dmriprep-viewer.
+Thanks for suggesting an improvement to NiRV.
 -->
 
 #### Describe the feature you want to enable

@@ -32,7 +32,7 @@
 
 <script>
 export default {
-  name: "explainer",
+  name: "TheExplainer",
   data() {
     return {
       collapseId: null,

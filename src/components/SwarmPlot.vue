@@ -2,7 +2,7 @@
   <div :id="divId">
     <!-- <resize-observer @notify="handleResize" /> -->
     <h6 class="m-0 p-0 text-left">{{ metric }}</h6>
-    <svg :id="svgId" ref="chart" class="violin-plot"></svg>
+    <svg :id="svgId" ref="chart" class="swarm-plot"></svg>
   </div>
 </template>
 
@@ -10,7 +10,7 @@
 const d3 = require("d3");
 
 export default {
-  name: "violinPlot",
+  name: "swarmPlot",
   props: {
     data: {
       type: Array,
@@ -45,10 +45,10 @@ export default {
       return this.radius * 0.1;
     },
     svgId() {
-      return "violinsvg-" + this.metric;
+      return "swarmsvg-" + this.metric;
     },
     divId() {
-      return "violindiv-" + this.metric;
+      return "swarmdiv-" + this.metric;
     },
     tooltipId() {
       return "tooltip-" + this.metric;
@@ -214,7 +214,7 @@ export default {
           .filter(
             (d) => that.x(d[that.metric]) >= x0 && that.x(d[that.metric]) <= x1
           )
-          .map((d) => d.subject_session_id);
+          .map((d) => d.participant_session_id);
       }
 
       // If the brush is empty, select all circles.
@@ -254,7 +254,7 @@ export default {
         .style("cursor", "pointer")
         .attr("stroke", "white")
         .on("mouseover", (d) => {
-          that.hoveredSubject = d.data.subject_session_id;
+          that.hoveredSubject = d.data.participant_session_id;
           d3.select(d3.event.currentTarget)
             .transition()
             .duration(100)
@@ -264,7 +264,7 @@ export default {
             .transition()
             .duration(200)
             .style("display", "initial")
-            .text(d.data.subject_session_id);
+            .text(d.data.participant_session_id);
         })
         .on("mouseout", () => {
           that.hoveredSubject = null;
@@ -281,7 +281,7 @@ export default {
             .style("top", d3.event.pageY + 10 + "px");
         })
         .on("click", (d) => {
-          that.$emit("updateSelectedSubject", d.data.subject_session_id);
+          that.$emit("updateSelectedSubject", d.data.participant_session_id);
         });
 
       // Box plot
@@ -377,7 +377,7 @@ export default {
 </script>
 
 <style scoped>
-.violin-plot {
+.swarm-plot {
   width: 100%;
   height: 100%;
 }

@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
-import LandingPage from "@/components/LandingPage";
-import genReport from "@/components/GenReport";
+import HomeView from "@/views/HomeView";
+import ReportView from "@/views/ReportView";
 
 Vue.use(Router);
 
@@ -9,13 +9,13 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "LandingPage",
-      component: LandingPage,
+      name: "Home",
+      component: HomeView,
     },
     {
       path: "/report",
-      name: "GenReport",
-      component: genReport,
+      name: "Report",
+      component: ReportView,
     },
   ],
 });

@@ -20,5 +20,5 @@ after_success:
   - bash ./deploy.sh
 env:
   global:
-    - GH_USER: nipreps
-    - GH_REPO: dmriprep-viewer
+    - GH_USER: ni-report-viewer
+    - GH_REPO: nirv

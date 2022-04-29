@@ -255,7 +255,7 @@ export default {
             .transition()
             .duration(200)
             .style("display", "initial")
-            .text(d.subject_session_id);
+            .text(d.participant_session_id);
         })
         .on("mouseout", () => {
           d3.select(d3.event.currentTarget)
@@ -271,7 +271,7 @@ export default {
             .style("top", d3.event.pageY + 10 + "px");
         })
         .on("click", (d) => {
-          that.$emit("updateSelectedSubject", d.subject_session_id);
+          that.$emit("updateSelectedSubject", d.participant_session_id);
         });
 
       circle.moveToFront();
@@ -340,7 +340,7 @@ export default {
               that.y[j](d[that.columns[j]]) >= y0 &&
               that.y[j](d[that.columns[j]]) <= y1
           )
-          .map((d) => d.subject_session_id);
+          .map((d) => d.participant_session_id);
       }
 
       // If the brush is empty, select all circles.
