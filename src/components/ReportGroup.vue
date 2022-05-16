@@ -1,8 +1,7 @@
 <template>
-  <b-container fluid class="px-0">
-    <b-container fluid class="px-0" v-if="store.participantMetrics">
-      <TheTopbar sidebarOn isGroupReport />
-
+  <b-container class="px-0">
+    <TheTopbar sidebarOn isGroupReport />
+    <b-container class="px-0 mx-0" v-if="store.participantMetrics">
       <TheExplainer :explainer-text="explainerText.metrics" />
       <b-form-group class="text-left" label="Select scatterplot metrics">
         <b-form-checkbox-group
@@ -123,7 +122,7 @@ export default {
     const swarmMetrics = ref([]);
 
     const updateSelectedParticipant = (participant) => {
-      store.currentParticipant = participant;
+      store.selectParticipant(participant);
     };
 
     const groupReport = { participants: store.participantMetrics };

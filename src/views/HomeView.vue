@@ -22,10 +22,21 @@
             ></b-form-file>
           </b-form-group>
         </b-tab>
-        <b-tab title="Use remote files" disabled>
-          <p class="mt-4 text-left">Insert a URI input box here!</p>
+        <b-tab title="Use remote files">
+          <b-input-group prepend="URI">
+            <b-form-input
+              v-model="uri"
+              placeholder="s3://nirv-example-data"
+              @keyup.enter="navigate"
+            />
+            <b-input-group-append>
+              <b-btn text="Button" variant="primary" @click="navigate"
+                >Go</b-btn
+              >
+            </b-input-group-append>
+          </b-input-group>
         </b-tab>
-        <b-tab title="Load a demo dataset" disabled>
+        <b-tab title="Load a demo dataset">
           <b-form-group class="mt-4 text-left">
             <b-form-select v-model="selectedDataset" :options="datasets">
               <template #first>
@@ -103,6 +114,14 @@ export default {
       }
     });
 
+    const navigate = async () => {
+      state.value = "showSpinner";
+
+      if (uri.value) {
+        console.log(uri.value);
+      }
+    };
+
     return {
       datasets,
       files,
@@ -111,6 +130,7 @@ export default {
       selectedDataset,
       showErrorModal,
       state,
+      navigate,
     };
   },
 };

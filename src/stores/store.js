@@ -13,11 +13,18 @@ import {
   ratingsToCSV,
   csvToRatings,
 } from "@/helpers/ratings";
+import {
+  readHtml,
+  getParticipantId,
+  insertDataUrisIntoHtml,
+} from "@/helpers/html";
 
 export const useReportStore = defineStore({
   id: "report",
   state: () => {
     return {
+      inputFiles: null,
+      inputPaths: null,
       brushedParticipants: [],
       inputCsv: null,
       inputJson: null,
@@ -27,13 +34,11 @@ export const useReportStore = defineStore({
       participantReports: null,
       participantReportPaths: null,
       currentParticipant: "study",
+      currentHtml: null,
       sidebarFilter: "",
     };
   },
   getters: {
-    showStudyQc: (state) => {
-      return state.currentParticipant === "study";
-    },
     studyId: (state) => {
       return state.inputJson?.studyId || "Study";
     },
@@ -58,8 +63,8 @@ export const useReportStore = defineStore({
       }
       return null;
     },
-    currentParticipantReport: (state) => {
-      if (state.participantReports) {
+    currentReport: (state) => {
+      if (state.participantReports && state.currentParticipant !== "study") {
         return state.participantReports[state.currentParticipant];
       }
       return null;
@@ -104,11 +109,29 @@ export const useReportStore = defineStore({
       this.participantMetrics = getMetrics(this.inputCsv);
       this.participantReportPaths = getReportPaths(this.inputCsv);
 
+      const participants = [
+        ...new Set(this.inputCsv.map((row) => row.participant_id)),
+      ];
+
+      this.inputFiles = participants.reduce((acc, currentParticipant) => {
+        acc[currentParticipant] = files.filter((file) =>
+          file.$path.includes(currentParticipant)
+        );
+        return acc;
+      }, {});
+
+      this.inputPaths = participants.reduce((acc, currentParticipant) => {
+        acc[currentParticipant] = files
+          .filter((file) => file.$path.includes(currentParticipant))
+          .map((file) => file.webkitRelativePath);
+        return acc;
+      }, {});
+
       const htmlFiles = files.filter((file) => file.name.endsWith(".html"));
       this.participantReports = Object.keys(this.participantReportPaths).reduce(
-        (acc, current) => {
-          acc[current] = htmlFiles.filter((file) =>
-            file.$path.includes(this.participantReportPaths[current])
+        (acc, currentValue) => {
+          acc[currentValue] = htmlFiles.filter((file) =>
+            file.$path.includes(this.participantReportPaths[currentValue])
           )[0];
           return acc;
         },
@@ -127,8 +150,10 @@ export const useReportStore = defineStore({
       );
     },
     resetPartialRating() {
-      this.participantRatings[this.currentParticipant].reviewed = false;
-      this.participantRatings[this.currentParticipant].whenRated = null;
+      if (this.currentParticipant !== "study") {
+        this.participantRatings[this.currentParticipant].reviewed = false;
+        this.participantRatings[this.currentParticipant].whenRated = null;
+      }
     },
     downloadRatings() {
       ratingsToCSV(this.participantRatings);
@@ -142,7 +167,26 @@ export const useReportStore = defineStore({
           ? (this.filteredParticipants.indexOf(this.currentParticipant) + 1) %
             this.filteredParticipants.length
           : 0;
-      this.currentParticipant = this.filteredParticipants[nextIdx];
+      this.selectParticipant(this.filteredParticipants[nextIdx]);
+    },
+    selectParticipant(participant) {
+      this.currentParticipant = participant;
+      this.currentHtml = null;
+
+      if (participant !== "study") {
+        const participantOnlyId = getParticipantId(participant);
+        readHtml(this.currentReport)
+          .then((result) =>
+            insertDataUrisIntoHtml(
+              result,
+              this.currentReport.$path,
+              this.inputFiles[participantOnlyId]
+            )
+          )
+          .then((result) => {
+            this.currentHtml = result;
+          });
+      }
     },
   },
 });

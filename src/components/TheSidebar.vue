@@ -14,7 +14,7 @@
       <b-nav-item
         class="mx-1"
         :active="store.currentParticipant === 'study'"
-        @click="store.currentParticipant = 'study'"
+        @click="store.selectParticipant('study')"
       >
         {{ store.studyId }}
       </b-nav-item>
@@ -28,7 +28,7 @@
         v-for="participant in store.filteredParticipants"
         :key="participant"
         :active="participant === store.currentParticipant"
-        @click="store.currentParticipant = participant"
+        @click="store.selectParticipant(participant)"
       >
         <b-icon
           class="mr-2"
