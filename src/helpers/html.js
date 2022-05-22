@@ -50,7 +50,6 @@ const replaceDataUriAttributes = (doc, substr, replacement) => {
       node.setAttribute("src", String.raw`${replacement}`);
     } else if (node.getAttribute("data") === substr) {
       node.setAttribute("data", String.raw`${replacement}`);
-      console.log(node);
     } else if (node.getAttribute("href") === substr) {
       node.setAttribute("href", String.raw`${replacement}`);
       node.setAttribute("download", basename(substr));

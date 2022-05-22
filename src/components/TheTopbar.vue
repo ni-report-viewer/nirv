@@ -10,6 +10,14 @@
         <b-icon icon="layout-sidebar" aria-hidden="true"></b-icon>
       </b-button>
       <b-button
+        id="refresh-report"
+        variant="outline-primary"
+        class="mb-2 header-button"
+        @click="refreshReport"
+      >
+        <b-icon icon="arrow-clockwise" aria-hidden="true"></b-icon>
+      </b-button>
+      <b-button
         id="download-button"
         variant="outline-primary"
         class="mb-2 header-button"
@@ -39,7 +47,7 @@
         variant="outline-primary"
         class="mb-2 header-button"
         v-if="!isGroupReport"
-        v-b-modal.rating-modal
+        v-b-modal.ratingmodal
       >
         <b-iconstack>
           <b-icon
@@ -62,8 +70,8 @@
         </b-iconstack>
       </b-button>
       <b-modal
-        id="rating-modal"
-        ref="rating-modal"
+        id="ratingmodal"
+        ref="ratingmodal"
         :title="subjectId"
         @ok="onModalOk"
         @hidden="handleHidden"
@@ -189,7 +197,7 @@
       >toggle sidebar</b-tooltip
     >
     <b-tooltip target="download-button" triggers="hover"
-      >download this report.json file</b-tooltip
+      >download this report html file</b-tooltip
     >
     <b-tooltip target="stats-button" triggers="hover" v-if="!isGroupReport"
       >show QC summary stats</b-tooltip
@@ -206,8 +214,7 @@
 
 <script>
 import { ref } from "@vue/composition-api";
-// import { Modal } from "bootstrap";
-import { nextTick } from "vue";
+import { nextTick } from "@vue/composition-api";
 
 // eslint-disable-next-line
 import "bootstrap/dist/css/bootstrap.css";
@@ -247,6 +254,10 @@ export default {
       console.log("Download is not yet implemented!");
     };
 
+    const refreshReport = () => {
+      document.getElementById("report-iframe").contentWindow.location.reload();
+    };
+
     const checkFormValidity = () => {
       return store.participantRatings[store.currentParticipant].rating != null;
     };
@@ -269,7 +280,7 @@ export default {
       store.participantRatings[store.currentParticipant].reviewed = true;
 
       nextTick().then(() => {
-        // Modal.getInstance("rating-modal")?.hide();
+        ratingmodal.value.hide();
       });
     };
 
@@ -280,6 +291,8 @@ export default {
       handleSubmit();
     };
 
+    const ratingmodal = ref(null);
+
     return {
       store,
       ratingsCsvFile,
@@ -288,7 +301,9 @@ export default {
       subjectId,
       handleHidden,
       handleSubmit,
+      ratingmodal,
       downloadReport,
+      refreshReport,
       onModalOk,
     };
   },

@@ -12,9 +12,11 @@
       >
         <!-- <div v-html="store.currentHtml"></div> -->
         <iframe
+          id="report-iframe"
           class="w-100 flex-grow-1 px-0 mx-0"
           style="height: 70vh"
           :srcdoc="store.currentHtml"
+          fetchpriority="high"
         ></iframe>
       </b-container>
     </b-container>
