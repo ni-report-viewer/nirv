@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunknirv"]=self["webpackChunknirv"]||[]).push([[449],{1435:function(e,t,n){n.r(t),n.d(t,{default:function(){return i}});var r=function(){var e=this,t=e.$createElement,n=e._self._c||t;return n("div",{staticClass:"col-full text-center"},[n("h1",[e._v("Not Found")]),n("p",[e._v("You have navigated to a non-existent resource.")]),n("router-link",{attrs:{to:{name:"Home"}}},[e._v("Click here to go back to the NiRV home")])],1)},o=[],u={},a=u,c=n(1001),l=(0,c.Z)(a,r,o,!1,null,"acfed0d0",null),i=l.exports}}]);
+//# sourceMappingURL=notFound.cf792234.js.map
