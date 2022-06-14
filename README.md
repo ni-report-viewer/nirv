@@ -8,16 +8,16 @@ The relevant files for this repo are:
 
 | Location                               | Content                                                                                                           |
 | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `src/components/ReportParticipant.vue` | Renders contents of a participant level `report` object
-| `src/components/ReportGroup.vue`       | Renders contents of a group level `report` object
+| `src/components/ReportParticipant.vue` | Renders contents of a participant level `report` object                                                           |
+| `src/components/ReportGroup.vue`       | Renders contents of a group level `report` object                                                                 |
 | `src/App.vue`                          | Main entrypoint, its child component is `src/components/GenReport.vue`                                            |
 | `src/components/GenReport.vue`         | Determines if report.json contains a particpant or group level report and calls the appropriate report component. |
 | `package.json`                         | File that contains all the JS libraries we need for this.                                                         |
 
 The widget files are:
 
-| Location                          | Content                                                                                                                                          |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Location | Content |
+| -------- | ------- |
 
 ## Project setup
 
