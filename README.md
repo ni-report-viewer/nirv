@@ -1,50 +1,49 @@
 # NiRV: The NeuroImaging Report Viewer
 
-## Citation
+[![DOI](https://zenodo.org/badge/428845415.svg)](https://zenodo.org/badge/latestdoi/428845415)
 
-## Relevant files
+NiRV is a modern neuroimaging report viewer that aggregates participant level HTML reports for datasets, small and large.
 
-The relevant files for this repo are:
+## Usage
 
-| Location                               | Content                                                                                                           |
-| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `src/components/ReportParticipant.vue` | Renders contents of a participant level `report` object                                                           |
-| `src/components/ReportGroup.vue`       | Renders contents of a group level `report` object                                                                 |
-| `src/App.vue`                          | Main entrypoint, its child component is `src/components/GenReport.vue`                                            |
-| `src/components/GenReport.vue`         | Determines if report.json contains a particpant or group level report and calls the appropriate report component. |
-| `package.json`                         | File that contains all the JS libraries we need for this.                                                         |
+TODO: Add a small usage guide
 
-The widget files are:
+## Contributing
 
-| Location | Content |
-| -------- | ------- |
+We love contributions! _NiRV_ is open source, built on open source,
+and we'd love to have you hang out in our community.
 
-## Project setup
+We have developed some [guidelines](.github/CONTRIBUTING.md) for contributing to
+_NiRV_.
 
-You should first have NodeJS installed (version >= 10). Then install dependencies with:
+## Citing _NiRV_
 
-```bash
-yarn install
+If you use _NiRV_ in a scientific publication, please see cite us:
+
+Adam Richie-Halford, Anisha Keshavan, Matt Cieslak, & Oscar Esteban. (2022). ni-report-viewer/nirv: v0.1.1 (v0.1.1). Zenodo. [https://doi.org/10.5281/zenodo.6645624](https://doi.org/10.5281/zenodo.6645624)
+
+```bibtex
+@software{richiehalford2022nirv,
+  author       = {Adam Richie-Halford and
+                  Anisha Keshavan and
+                  Matt Cieslak and
+                  Oscar Esteban},
+  title        = {ni-report-viewer/nirv: v0.1.1},
+  month        = jun,
+  year         = 2022,
+  publisher    = {Zenodo},
+  version      = {v0.1.1},
+  doi          = {10.5281/zenodo.6645624},
+  url          = {https://doi.org/10.5281/zenodo.6645624}
+}
 ```
 
-### Compiles and hot-reloads for development
+## Acknowledgements
 
-During development, do:
-
-```bash
-yarn serve
-```
-
-### Compiles and minifies for production
-
-To build the minified widget files:
-
-```bash
-yarn build
-```
-
-### Lints and fixes files
-
-```bash
-yarn lint
-```
+_NiRV_ development is supported through a grant from the [Gordon
+and Betty Moore Foundation](https://www.moore.org/) and from the
+[Alfred P. Sloan Foundation](https://sloan.org/) to the [University of
+Washington eScience Institute](http://escience.washington.edu/), as
+well as
+[NIMH BRAIN Initiative grant 1RF1MH121868-01](https://projectreporter.nih.gov/project_info_details.cfm?aid=9886761&icde=46874320&ddparam=&ddvalue=&ddsub=&cr=2&csb=default&cs=ASC&pball=)
+to Ariel Rokem (University of Washington).
