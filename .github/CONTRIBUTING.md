@@ -266,7 +266,7 @@ but those accepted fastest will follow a workflow similar to the following:
 
 ## _NiRV_ coding style guide
 
-We use the [ESLint][link_black] via the [`@vue/cli-plugin-eslint` plugin][link_vuecliservicelint] for format our code
+We use the [ESLint][link_eslint] via the [`@vue/cli-plugin-eslint` plugin][link_vuecliservicelint] for format our code
 contributions to a common style. All pull requests will automatically be
 checked for compliance so we recommend that you run the following command before submitting your pull request.
 
@@ -294,23 +294,23 @@ acknowledge that any contributions will be licensed under the same terms.
 [link_autofq]: https://autofq.org/
 [link_bedevere]: https://github.com/search?q=commenter%3Abedevere-bot+soft+cushions
 [link_bedevere_video]: https://youtu.be/XnS49c9KZw8?t=1m7s
-[link_black]: https://black.readthedocs.io/en/stable/
 [link_branches]: https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/
 [link_bugs]: https://github.com/ni-report-viewer/nirv/labels/bug
 [link_clone]: https://help.github.com/articles/cloning-a-repository
 [link_discussingissues]: https://help.github.com/articles/discussing-projects-in-issues-and-pull-requests
-[link_enhancement]: https://github.com/ni-report-viewer/nirv/labels/enhancement
 [link_documentation]: https://github.com/ni-report-viewer/nirv/labels/enhancement
+[link_enhancement]: https://github.com/ni-report-viewer/nirv/labels/enhancement
+[link_eslint]: https://eslint.org/
 [link_firstissue]: https://github.com/ni-report-viewer/nirv/labels/good%20first%20issue
 [link_fork]: https://help.github.com/articles/fork-a-repo/
 [link_git]: https://git-scm.com/
 [link_github]: https://github.com/
 [link_githubedit]: https://help.github.com/articles/editing-files-in-your-repository
-[link_nirv]: https://github.com/ni-report-viewer/nirv
 [link_handbook]: https://guides.github.com/introduction/git-handbook/
 [link_issues]: https://github.com/ni-report-viewer/nirv/issues
 [link_labels]: https://github.com/ni-report-viewer/nirv/labels
 [link_markdown]: https://daringfireball.net/projects/markdown
+[link_nirv]: https://github.com/ni-report-viewer/nirv
 [link_nodeinstall]: https://nodejs.dev/learn/how-to-install-nodejs
 [link_pullrequest]: https://help.github.com/articles/creating-a-pull-request-from-a-fork
 [link_pushpullblog]: https://www.igvita.com/2011/12/19/dont-push-your-pull-requests/
@@ -320,4 +320,5 @@ acknowledge that any contributions will be licensed under the same terms.
 [link_texteditor]: https://en.wikipedia.org/wiki/Text_editor
 [link_updateupstreamwiki]: https://help.github.com/articles/syncing-a-fork/
 [link_vscode]: https://code.visualstudio.com/
+[link_vuecliservicelint]: https://cli.vuejs.org/core-plugins/eslint.html
 [link_writing_formatting_github]: https://help.github.com/articles/getting-started-with-writing-and-formatting-on-github
