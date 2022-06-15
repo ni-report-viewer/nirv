@@ -307,7 +307,7 @@ acknowledge that any contributions will be licensed under the same terms.
 [link_git]: https://git-scm.com/
 [link_github]: https://github.com/
 [link_githubedit]: https://docs.github.com/en/repositories/working-with-files/managing-files/editing-files
-[link_handbook]: https://guides.github.com/introduction/git-handbook/
+[link_handbook]: https://docs.github.com/en/get-started/using-git/about-git
 [link_issues]: https://github.com/ni-report-viewer/nirv/issues
 [link_labels]: https://github.com/ni-report-viewer/nirv/labels
 [link_markdown]: https://daringfireball.net/projects/markdown
