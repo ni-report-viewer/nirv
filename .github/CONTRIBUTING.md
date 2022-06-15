@@ -107,7 +107,7 @@ The current list of issue labels are [here][link_labels] and include:
 - [![Enhancement](https://img.shields.io/github/labels/ni-report-viewer/nirv/enhancement)][link_enhancement] _These issues are asking for new features and improvements to be considered by the project._
 
   Please try to make sure that your requested feature is distinct from any
-  others that have already been requested or implemented.  If you find one
+  others that have already been requested or implemented. If you find one
   that's similar but there are subtle differences, please reference the other
   request in your issue.
 
@@ -120,6 +120,7 @@ The current list of issue labels are [here][link_labels] and include:
 ## Understanding the _NiRV_ source code
 
 <!-- TODO: Add an overview of the Vue app structure. -->
+
 Coming Soon. Please check back in a bit.
 
 ## Making a change
@@ -289,36 +290,36 @@ acknowledge that any contributions will be licensed under the same terms.
     adapted based on its use in the README file for the
     [MetPy project](https://github.com/Unidata/MetPy).
 
-[link_add_commit_push]: https://help.github.com/articles/adding-a-file-to-a-repository-using-the-command-line
-[link_addremote]: https://help.github.com/articles/configuring-a-remote-for-a-fork
+[link_add_commit_push]: https://docs.github.com/en/repositories/working-with-files/managing-files/adding-a-file-to-a-repository
+[link_addremote]: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/configuring-a-remote-for-a-fork
 [link_autofq]: https://autofq.org/
 [link_bedevere]: https://github.com/search?q=commenter%3Abedevere-bot+soft+cushions
 [link_bedevere_video]: https://youtu.be/XnS49c9KZw8?t=1m7s
-[link_branches]: https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/
+[link_branches]: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-and-deleting-branches-within-your-repository
 [link_bugs]: https://github.com/ni-report-viewer/nirv/labels/bug
-[link_clone]: https://help.github.com/articles/cloning-a-repository
+[link_clone]: https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository
 [link_discussingissues]: https://help.github.com/articles/discussing-projects-in-issues-and-pull-requests
 [link_documentation]: https://github.com/ni-report-viewer/nirv/labels/enhancement
 [link_enhancement]: https://github.com/ni-report-viewer/nirv/labels/enhancement
 [link_eslint]: https://eslint.org/
 [link_firstissue]: https://github.com/ni-report-viewer/nirv/labels/good%20first%20issue
-[link_fork]: https://help.github.com/articles/fork-a-repo/
+[link_fork]: https://docs.github.com/en/get-started/quickstart/fork-a-repo
 [link_git]: https://git-scm.com/
 [link_github]: https://github.com/
-[link_githubedit]: https://help.github.com/articles/editing-files-in-your-repository
+[link_githubedit]: https://docs.github.com/en/repositories/working-with-files/managing-files/editing-files
 [link_handbook]: https://guides.github.com/introduction/git-handbook/
 [link_issues]: https://github.com/ni-report-viewer/nirv/issues
 [link_labels]: https://github.com/ni-report-viewer/nirv/labels
 [link_markdown]: https://daringfireball.net/projects/markdown
 [link_nirv]: https://github.com/ni-report-viewer/nirv
 [link_nodeinstall]: https://nodejs.dev/learn/how-to-install-nodejs
-[link_pullrequest]: https://help.github.com/articles/creating-a-pull-request-from-a-fork
+[link_pullrequest]: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork
 [link_pushpullblog]: https://www.igvita.com/2011/12/19/dont-push-your-pull-requests/
 [link_rick_roll]: https://www.youtube.com/watch?v=dQw4w9WgXcQ
-[link_signupinstructions]: https://help.github.com/articles/signing-up-for-a-new-github-account
+[link_signupinstructions]: https://docs.github.com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account
 [link_swc_intro]: http://swcarpentry.github.io/git-novice/
 [link_texteditor]: https://en.wikipedia.org/wiki/Text_editor
-[link_updateupstreamwiki]: https://help.github.com/articles/syncing-a-fork/
+[link_updateupstreamwiki]: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork
 [link_vscode]: https://code.visualstudio.com/
 [link_vuecliservicelint]: https://cli.vuejs.org/core-plugins/eslint.html
-[link_writing_formatting_github]: https://help.github.com/articles/getting-started-with-writing-and-formatting-on-github
+[link_writing_formatting_github]: https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github
